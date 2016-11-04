@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-cmptool" version="0.0.1">
+	<name>cmptool</name>
+	<description>Cordova Plugin - CmpTech</description>
+	<license>Apache 2.0</license>
+	<keywords>cordova,cmptool</keywords>
+	<repo>https://github.com/cmptech/cordova-plugin-cmptool</repo>
+	<!-- <issue></issue>-->
+	<!--<dependency id="cordova-plugin-file" version="^4.0.0" /> -->
+	<js-module src="www/cordova-cmptool.js" name="cmptool">
+		<clobbers target="cmptool" />
+	</js-module>
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="FileTransfer" >
+				<param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer"/>
+			</feature>
+		</config-file>
+
+		<config-file target="AndroidManifest.xml" parent="/*">
+			<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+		</config-file>
+
+		<source-file src="src/android/cmptool.java" target-dir="src/cmp/cordova" />
+	</platform>
+	<!-- ios -->
+	<platform name="ios">
+		<config-file target="config.xml" parent="/*">
+			<feature name="cmptool">
+				<param name="ios-package" value="CDVcmptool"/>
+			</feature>
+		</config-file>
+		<header-file src="src/ios/CDVcmptool.h" />
+		<source-file src="src/ios/CDVcmptool.m" />
+		<!--
+		<framework src="AssetsLibrary.framework" />
+		-->
+	</platform>
+</plugin>
