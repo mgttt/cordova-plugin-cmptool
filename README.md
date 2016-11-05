@@ -1,4 +1,8 @@
-plugman https://github.com/wanjochan/cordova-plugin-cmptool.git
+
+# usage
+cordova plugin add https://github.com/wanjochan/cordova-plugin-cmptool.git
+
+and then used in your own plugin
 
 # work log
 
