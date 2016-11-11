@@ -6,9 +6,10 @@ function sync_copy(src,tgt){
 	return fs.writeFileSync(tgt, fs.readFileSync(src));
 }
 module.exports = function(ctx) {
-	//console.log(" ctx ", ctx);
 	console.log("process.args");
 	console.log(process.argv);
+
+	console.log(" ctx ", ctx);
 
 	// make sure android platform is part of build
 	//if (ctx.opts.platforms.indexOf('android') < 0) {

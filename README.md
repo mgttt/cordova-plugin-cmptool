@@ -12,7 +12,6 @@ if your cordova is read, this cmd can help to do anything:
 cordova plugin ls
 
 cordova plugin rm cmp.cordova.cmptool
-cordova plugin add https://github.com/SZU-BDI/cordova-plugin-cmphybrid-install-helper.git
 cordova plugin add https://github.com/wanjochan/cordova-plugin-cmptool.git
 
 cordova plugin ls
