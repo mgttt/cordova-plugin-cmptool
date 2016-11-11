@@ -73,6 +73,7 @@ public class cmptool extends CordovaPlugin {
 			}
 		 注意还要处理 call back !!!
 		*/
+		/*
 		public static void startUi(String name, String overrideParam_s, Activity caller) {
 			Object uia = getAppConfig(UI_MAPPING);
 			if (uia == null) {
@@ -123,4 +124,5 @@ public class cmptool extends CordovaPlugin {
 				quickShowMsgMain("Error:" + t.getMessage());
 			}
 		}
+		*/
 }

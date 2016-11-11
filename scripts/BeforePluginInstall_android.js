@@ -5,6 +5,7 @@ function sync_copy(src,tgt){
 	console.log('to copy '+src+' => '+tgt);
 	return fs.writeFileSync(tgt, fs.readFileSync(src));
 }
+
 module.exports = function(ctx) {
 	// make sure android platform is part of build
 	//if (ctx.opts.platforms.indexOf('android') < 0) {
@@ -21,6 +22,20 @@ module.exports = function(ctx) {
 	var projectRoot=ctx.opts.projectRoot;
 	var platformRoot = path.join(projectRoot, 'platforms/android');
 	
+	function copyFiles(srcPath, destPath) {
+		console.log(" copyFiles() ",srcPath," => ",destPath);
+		if (fs.statSync(srcPath).isDirectory()) {
+			if (!fs.existsSync(destPath)) {
+				fs.mkdirSync(destPath);
+			}
+			fs.readdirSync(srcPath).forEach(function (child) {
+				copyFiles(path.join(srcPath, child), path.join(destPath, child));
+			});
+		} else {
+			fs.writeFileSync(destPath, fs.readFileSync(srcPath));
+		}
+	}  
+	
 	/*
 	return 
 	Q("what").then //OK
@@ -36,7 +51,7 @@ module.exports = function(ctx) {
 	
 	return Q.try(function(){
 		console.log(" ---- start plugin install ----");
-		console.log("ctx=",ctx);
+		//console.log("ctx=",ctx);
 	})
 		.then(function(){
 			return exec("cd "+pluginRoot +" && ls -al").then(function(stdout,stderr){
@@ -48,13 +63,16 @@ module.exports = function(ctx) {
 			console.log("try git update libs");
 			//git -C lib/lib-ios-jso pull || git clone https://github.com/SZU-BDI/lib-ios-jso.git lib/lib-ios-jso"
 			return exec("cd "+projectRoot
-				+" && pwd && (git -C lib/lib-ios-jso pull || git clone https://github.com/SZU-BDI/lib-ios-jso.git lib/lib-ios-jso) && ls -al")
+				+" && pwd && (git -C lib/app-hybrid-core pull || git clone https://github.com/SZU-BDI/app-hybrid-core.git --depth=1 --branch master --single-branch lib/app-hybrid-core) && ls -al")
 				.then(function(stdout,stderr){
 					if(stdout) console.log("stdout=",stdout.join("\n"));
 					if(stderr) console.log("stderr=",stderr.join("\n"));
 				});
 		}).then(function(prev){
-			console.log("do something after git update ");
+			console.log("sync files after git update ");
+			return Q.try(function(){
+				copyFiles(projectRoot+"/lib/app-hybrid-core/lib-android/szu.bdi.hybrid.core/src/main/java",platformRoot+"/src");
+			});
 		}).catch(function(ex){
 			console.log("some error ",ex);
 			defer.reject(ex);
