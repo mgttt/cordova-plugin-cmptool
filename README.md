@@ -1,7 +1,7 @@
 # About Me
 
 cordova-plugin-cmptool is a plugin to cordova to help to install:
-* [szi-bid/lib-ios-jso/](https://github.com/szu-bdi/lib-ios-jso/)
+* library of [szi-bid/lib-ios-jso/](https://github.com/szu-bdi/lib-ios-jso/)
 * library of [szu-bdi/app-hybrid-core/](https://github.com/szu-bdi/app-hybrid-core/) 
 * "cmptool" in cordova root context
 
