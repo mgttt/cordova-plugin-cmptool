@@ -1,63 +1,23 @@
+# About Me
+
+cordova-plugin-cmptool is a plugin to cordova to help to install:
+* library of szu-bdi/app-hybrid-core/ and szi-bid/lib-ios-jso/
+* "cmptool" in cordova root context
 
 # usage
+
+if your cordova is read, this cmd can help to do anything:
+```
+cordova plugin ls
+
+cordova plugin rm cmp.cordova.cmptool
+cordova plugin add https://github.com/SZU-BDI/cordova-plugin-cmphybrid-install-helper.git
 cordova plugin add https://github.com/wanjochan/cordova-plugin-cmptool.git
 
+cordova plugin ls
+```
+
 and then used in your own plugin
-
-# work log
-
-prepare tools (plugman)
 ```
-npm install -g plugman
 ```
 
-when create 0.0.1
-```
-#rm -Rf cmptool/
-
-#plugman create --name cmptool --plugin_id cmp.cordova.cmptool --plugin_version 0.0.1 
-#cd cmptool/
-
-plugman platform add --platform_name ios
-plugman platform add --platform_name android
-
-cd ../$proj/
-cordova plugin rm cmp.cordova.cmptool
-#cordova plugin add ../cmptool/
-#cordova plugin add https://github.com/wanjochan/cordova-plugin-cmptool.git
-cordova plugin ls
-```
-
-build to see if ok
-```
-#cordova platform rm ios
-#cordova platform add ios
-cordova build ios
-
-#cordova platform rm android
-#cordova platform add android
-cordova build android
-```
-
-try run to see if ok
-```
-cordova run ios
-cordova run ios --debug --emulator --target="iPhone-4s, 8.1"
-cordova run android
-```
-
-update plugin and again
-```
-#1. change codes in ../cmptool/src/ and remember change version in plugin.xml if a milesone.
-
-#2. install the plugin again
-cordova plugin rm cmp.cordova.cmptool
-cordova plugin add ../cmptool/
-
-cordova plugin ls
-
-#3. run again
-#cordova run android
-cordova run android --debug
-cordova run ios --release --emulator --target="iPhone-4s, 8.1"
-```

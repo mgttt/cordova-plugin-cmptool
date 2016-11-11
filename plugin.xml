@@ -27,6 +27,7 @@
 		<!--
 		<source-file src="src/ios"  target-dir="src"/>
 		-->
+<hook type="before_plugin_add" src="scripts/BeforePluginAdd_android.js" />
 	</platform>
 	<platform name="android">
 		<config-file parent="/*" target="res/xml/config.xml">

@@ -55,5 +55,72 @@ public class cmptool extends CordovaPlugin {
         } else {
             callbackContext.error("Expected one non-empty string argument.");
         }
-    }
+		}
+		//TODO 
+		//参数分析，取出 name 
+		//在assets/config.json上取出 name 对应的 clsName
+		//Class.forName(clsName) 取出对应的类
+		//塞参数然后丢过去
+		/*
+			//Intent intent = new Intent(caller, targetClass);
+			String uiData_s = o2s(callParam);
+
+			intent.putExtra("uiData", uiData_s);
+			try {
+				caller.startActivityForResult(intent, 1);//onActivityResult()
+			} catch (Throwable t) {
+				quickShowMsgMain("Error:" + t.getMessage());
+			}
+		 注意还要处理 call back !!!
+		*/
+		public static void startUi(String name, String overrideParam_s, Activity caller) {
+			Object uia = getAppConfig(UI_MAPPING);
+			if (uia == null) {
+				HybridTools.quickShowMsgMain("config.json error!!!");
+				return;
+			}
+			JSONObject defaultParam = ((JSONObject) uia).optJSONObject(name);
+			if (defaultParam == null) {
+				HybridTools.quickShowMsgMain("config.json not found " + name + " !!!");
+				return;
+			}
+
+			JSONObject overrideParam = s2o(overrideParam_s);
+			JSONObject callParam = basicMerge(defaultParam, overrideParam);
+			Log.v(LOGTAG, "param after merge=" + callParam);
+
+			String clsName = callParam.optString("class");
+			if (isEmptyString(clsName)) {
+				HybridTools.quickShowMsgMain("config.json error!!! config not found for name=" + name);
+				return;
+			}
+			Class targetClass = null;
+			try {
+				//reflection:
+				targetClass = Class.forName(clsName);
+				Log.v(LOGTAG, "class " + clsName + " found for name " + name);
+			} catch (ClassNotFoundException e) {
+				HybridTools.quickShowMsgMain("config.json error!!! class now found for " + clsName);
+				return;
+			}
+
+			Intent intent = new Intent(caller, targetClass);
+
+			try {
+				if (!isEmptyString(name)) {
+					callParam.put("name", name);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			String uiData_s = o2s(callParam);
+
+			intent.putExtra("uiData", uiData_s);
+			try {
+				caller.startActivityForResult(intent, 1);//onActivityResult()
+			} catch (Throwable t) {
+				quickShowMsgMain("Error:" + t.getMessage());
+			}
+		}
 }
