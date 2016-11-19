@@ -28,9 +28,7 @@
 		<source-file src="src/ios"  target-dir="src"/>
 		-->
 		<!--
-		<hook type="before_plugin_add" src="scripts/BeforePluginAdd_android.js" />
 		-->
-		<hook type="before_plugin_install" src="scripts/BeforePluginInstall_android.js" />
 	</platform>
 	<platform name="android">
 		<config-file parent="/*" target="res/xml/config.xml">
@@ -46,6 +44,8 @@
 		-->
 		<!-- <resource-file src="src/android/res" target="res" />
 				 <resource-file src="src/android/assets" target="assets" /> -->
+		<hook type="before_plugin_install" src="scripts/PluginInstall_android.js" />
+		<hook type="after_platform_add" src="scripts/BeforePluginInstall_android.js" />
 		<source-file src="src/android/cmp" target-dir="src" />
 	</platform>
 </plugin>
